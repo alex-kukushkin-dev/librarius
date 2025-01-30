@@ -1,59 +1,68 @@
-# LibraryUi
+# Library Application #
+A simple full-stack Library Application 
+built with following stack 
+### for backend : ### 
++ Java 21 LTS
++ Spring Boot 3.4.2 
++ H2 embedded database
++ Liquibase for data migration  
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.5.
+### for frontend tech stack used : ###
++ Angular 19
++ TypeScript 5.7.3
++ HTML5
++ CSS3
 
-## Development server
+### By using Library App Users can: ###
 
-To start a local development server, run:
++ Add a new book to the catalog
++ Borrow a book
++ Return a book
++ Print a list of the books that user has borrowed
 
-```bash
-ng serve
-```
++ Additionally, there is a Login page (simple username-based login), basic CRUD for Users and Books, plus filtering and pagination for books.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Steps to start the backend module : ##
+1. Navigate to `library-core` directory
+2. Run: `mvn spring-boot:run`
+3. The Spring Boot application will spin-up on default port 8080
 
-## Code scaffolding
+## Steps to start the frontend app : ##
+1. Navigate to `library-frontend` directory
+2. Install dependencies: `npm install`
+3. Start dev server with: `npm start`
+   This runs `ng serve --open --proxy-config src/proxy.conf.json`, 
+   opening http://localhost:4200 in your browser automatically
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-```bash
-ng generate component component-name
-```
+## Application Usage ##
++ Visit http://localhost:4200.
++ Login Page:
+  Enter a username (e.g., “admin”).
+  If the user does not exist in the DB, 
+  the backend will create it.
+  On success, you are redirected to the Books page.
++ Books Page:
+Shows a paginated list of books from the DB.
+You can search by title/author using the search bar.
++ Borrow or Return (if you’re logged in).
+Click “Add New Book” to create a new book.
+Click “Edit” to modify an existing book.
++ Users Page:
+Displays a list of all users in the system.
++ Borrowed Books:
+Press “Load Borrowed Books” to see 
+which books your logged-in user has borrowed.
++ Logout:
+Click “Logout” in the top navigation 
+to clear your logged session (stored in localStorage) 
+and return to the login page.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## H2 Console ##
+If you want to inspect or debug the data, 
+go to http://localhost:8080/h2-console.
+* Use the default JDBC URL: jdbc:h2:mem:librarydb.
+* Credentials: 
+  username: sa,
+  password: sa 
+(as configured in application.properties)

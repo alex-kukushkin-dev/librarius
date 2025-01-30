@@ -1,0 +1,28 @@
+<h2>Borrowed Books</h2>
+
+<label>User ID: </label>
+<input type="string" [(ngModel)]="username" />
+<button (click)="loadBorrowedBooks()">Load Borrowed Books</button>
+
+<table *ngIf="borrowedBooks.length > 0">
+  <thead>
+  <tr>
+    <th>Borrow ID</th>
+    <th>Book Title</th>
+    <th>Author</th>
+    <th>Borrow Date</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let borrow of borrowedBooks">
+    <td>{{ borrow.id }}</td>
+    <td>{{ borrow.book.title }}</td>
+    <td>{{ borrow.book.author }}</td>
+    <td>{{ borrow.borrowDate }}</td>
+  </tr>
+  </tbody>
+</table>
+
+<div *ngIf="borrowedBooks.length === 0">
+  <p>No borrowed books found for user {{ username }}.</p>
+</div>

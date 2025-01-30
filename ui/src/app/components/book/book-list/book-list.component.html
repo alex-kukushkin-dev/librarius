@@ -1,0 +1,42 @@
+<div class="book-search">
+  <input [(ngModel)]="searchText" placeholder="Search by title or author..." />
+  <button (click)="onSearch()">Search</button>
+</div>
+
+<div class="book-table-container">
+  <table>
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Available</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let book of books">
+      <td>{{ book.title }}</td>
+      <td>{{ book.author }}</td>
+      <td>{{ book.available ? 'Yes' : 'No' }}</td>
+      <td>
+        <button *ngIf="book.available" (click)="borrowBook(book.id!)">
+          Borrow
+        </button>
+        <button *ngIf="!book.available" (click)="returnBook(book.id!)">
+          Return
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="page === 0">Previous</button>
+    <span>Page {{ page + 1 }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="page >= totalPages - 1">Next</button>
+  </div>
+</div>
+
+<div class="add-book-link">
+  <a routerLink="/add-book">Add New Book</a>
+</div>

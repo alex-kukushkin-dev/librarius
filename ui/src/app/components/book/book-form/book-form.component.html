@@ -1,0 +1,19 @@
+<div class="form-container">
+  <h2>{{ isEditMode ? 'Edit Book' : 'Add Book' }}</h2>
+
+  <label>Title:</label>
+  <input [(ngModel)]="book.title" />
+
+  <label>Author:</label>
+  <input [(ngModel)]="book.author" />
+
+  <label>Available:</label>
+  <select [(ngModel)]="book.available">
+    <option [ngValue]="true">Yes</option>
+    <option [ngValue]="false">No</option>
+  </select>
+
+  <button (click)="saveBook()">
+    {{ isEditMode ? 'Update' : 'Save' }}
+  </button>
+</div>

@@ -1,0 +1,12 @@
+<nav class="navbar" *ngIf="isLoggedIn()">
+  <div class="nav-links">
+    <a routerLink="/books">Books</a>
+    <a routerLink="/users">Users</a>
+    <a routerLink="/borrow-list">Borrowed Books</a>
+    <button (click)="logout()">Logout</button>
+  </div>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
