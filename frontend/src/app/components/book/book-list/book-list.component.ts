@@ -5,6 +5,7 @@ import { BorrowService } from '../../../services/borrow.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from "@angular/router";
 import { FormsModule } from "@angular/forms";
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
     selector: 'app-book-list',
@@ -19,22 +20,22 @@ export class  BookListComponent implements OnInit {
     page = 0;
     size = 5;
     totalPages = 0;
-    selectedUser = 'admin';
 
     constructor(
+        private authService: AuthService,
         private bookService: BookService,
         private borrowService: BorrowService
     ) {}
 
     ngOnInit(): void {
-      this.loadBooks();
+        this.loadBooks();
     }
 
     loadBooks(): void {
         this.bookService.getBooks(this.searchText, this.page, this.size)
             .subscribe(response => {
-              this.books = response.content;
-              this.totalPages = response.totalPages;
+                this.books = response.content;
+                this.totalPages = response.totalPages;
             });
     }
 
@@ -58,7 +59,8 @@ export class  BookListComponent implements OnInit {
     }
 
     borrowBook(bookId: number): void {
-        this.borrowService.borrowBook(this.selectedUser, bookId)
+        let currentUser = this.authService.getLoggedUser();
+        this.borrowService.borrowBook(currentUser?.id ?? 1, bookId)
             .subscribe({
                 next: () => {
                     this.loadBooks();
@@ -69,7 +71,8 @@ export class  BookListComponent implements OnInit {
     }
 
     returnBook(bookId: number): void {
-        this.borrowService.returnBook(bookId)
+        let currentUser = this.authService.getLoggedUser();
+        this.borrowService.returnBook(currentUser?.id ?? 1, bookId)
             .subscribe({
                 next: () => {
                     this.loadBooks();

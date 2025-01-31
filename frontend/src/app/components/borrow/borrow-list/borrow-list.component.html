@@ -1,7 +1,7 @@
 <h2>Borrowed Books</h2>
 
-<label>User ID: </label>
-<input type="string" [(ngModel)]="username" />
+<label>Username: </label>
+<input type="text" [(ngModel)]="username" />
 <button (click)="loadBorrowedBooks()">Load Borrowed Books</button>
 
 <table *ngIf="borrowedBooks.length > 0">

@@ -10,6 +10,7 @@ import com.demo.library.service.BorrowService;
 import com.demo.library.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,8 +23,9 @@ public class BorrowServiceImpl implements BorrowService {
     private final BookService bookService;
     private final UserService userService;
 
-    public BorrowRecord borrowBook(String username, Long bookId) {
-        User user = userService.findByUsername(username)
+    @Transactional
+    public Void borrowBook(Long userId, Long bookId) {
+        User user = userService.getUserById(userId)
             .orElseThrow(() -> new UserFriendlyException("User not found"));
         Book book = bookService.findById(bookId)
             .orElseThrow(() -> new UserFriendlyException("Book not found"));
@@ -36,18 +38,20 @@ public class BorrowServiceImpl implements BorrowService {
         record.setUser(user);
         record.setBook(book);
         record.setBorrowDate(LocalDateTime.now());
-        return borrowRecordRepository.save(record);
+        borrowRecordRepository.save(record);
+        return null;
     }
 
-    public BorrowRecord returnBook(Long borrowRecordId) {
-        BorrowRecord record = borrowRecordRepository.findById(borrowRecordId)
+    @Transactional
+    public Void returnBook(Long userId, Long bookId) {
+        BorrowRecord record = borrowRecordRepository.findBorrowRecordByUserIdAndBookId(userId, bookId)
             .orElseThrow(() -> new UserFriendlyException("Borrow record not found"));
         record.setReturnDate(LocalDateTime.now());
-        BorrowRecord updatedRecord = borrowRecordRepository.save(record);
-        Book book = updatedRecord.getBook();
+        Book book = record.getBook();
         book.setAvailable(true);
         bookService.updateBook(book);
-        return updatedRecord;
+        borrowRecordRepository.delete(record);
+        return null;
     }
 
     public List<BorrowRecord> getBorrowedBooks(String username) {

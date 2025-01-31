@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -21,6 +22,7 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findAll(spec, pageable);
     }
 
+    @Transactional
     public Book addBook(BookSaveRequest request) {
         Book newBook = new Book();
         newBook.setAuthor(request.getAuthor());
@@ -33,6 +35,7 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findById(id);
     }
 
+    @Transactional
     public void updateBook(Book book) {
         bookRepository.save(book);
     }

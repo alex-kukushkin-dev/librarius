@@ -15,15 +15,13 @@ public class BorrowController {
     private final BorrowService borrowService;
 
     @PostMapping
-    public ResponseEntity<BorrowRecord> borrowBook(@RequestParam String username, @RequestParam Long bookId) {
-        BorrowRecord record = borrowService.borrowBook(username, bookId);
-        return ResponseEntity.ok(record);
+    public ResponseEntity<?> borrowBook(@RequestParam Long userId, @RequestParam Long bookId) {
+        return ResponseEntity.ok(borrowService.borrowBook(userId, bookId));
     }
 
     @PostMapping("/return")
-    public ResponseEntity<BorrowRecord> returnBook(@RequestParam Long recordId) {
-        BorrowRecord record = borrowService.returnBook(recordId);
-        return ResponseEntity.ok(record);
+    public ResponseEntity<?> returnBook(@RequestParam Long userId, @RequestParam Long bookId) {
+        return ResponseEntity.ok(borrowService.returnBook(userId, bookId));
     }
 
     @GetMapping("/borrowed-books")

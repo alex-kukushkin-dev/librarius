@@ -6,6 +6,7 @@ import com.demo.library.repository.UserRepository;
 import com.demo.library.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,10 +25,12 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(userId);
     }
 
+    @Transactional
     public User saveUser(User user) {
         return userRepository.save(user);
     }
 
+    @Transactional
     public User createUser(String username) {
         User user = new User();
         user.setUsername(username);

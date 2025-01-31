@@ -23,12 +23,12 @@ built with following stack
 + Additionally, there is a Login page (simple username-based login), basic CRUD for Users and Books, plus filtering and pagination for books.
 
 ## Steps to start the backend module : ##
-1. Navigate to `library-core` directory
+1. Navigate to `backend` directory
 2. Run: `mvn spring-boot:run`
 3. The Spring Boot application will spin-up on default port 8080
 
 ## Steps to start the frontend app : ##
-1. Navigate to `library-frontend` directory
+1. Navigate to `frontend` directory
 2. Install dependencies: `npm install`
 3. Start dev server with: `npm start`
    This runs `ng serve --open --proxy-config src/proxy.conf.json`, 
@@ -63,6 +63,6 @@ If you want to inspect or debug the data,
 go to http://localhost:8080/h2-console.
 * Use the default JDBC URL: jdbc:h2:mem:librarydb.
 * Credentials: 
-  username: sa,
-  password: sa 
+  username: admin,
+  password: admin 
 (as configured in application.properties)

@@ -20,7 +20,8 @@ CREATE TABLE borrow_record (
     user_id BIGINT NOT NULL,
     book_id BIGINT NOT NULL,
     borrow_date TIMESTAMP,
-    return_date TIMESTAMP
+    return_date TIMESTAMP,
+    CONSTRAINT borrow_record_unique_key UNIQUE (user_id, book_id)
 );
 
 ALTER TABLE borrow_record
